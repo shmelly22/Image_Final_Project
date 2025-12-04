@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Forest Campfire + Log Cabin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
+  </head>
+
+  <body>
+    <a-scene renderer="antialias:true" background="color:#0b1320">
+      <!-- Assets -->
+      <a-assets>
+        <!-- Textures -->
+        <img id="grassTex" src="./grass_texture.jpg" crossorigin="anonymous" />
+        <img id="woodTex" src="./wood_texture.jpg" crossorigin="anonymous" />
+
+        <!-- Models -->
+        <a-asset-item id="rockModel" src="./Rocks.glb"></a-asset-item>
+        <a-asset-item id="barrelModel" src="./Medieval_Barrel.glb"></a-asset-item>
+      </a-assets>
+
+      <!-- Camera -->
+      <a-entity camera look-controls wasd-controls position="0 1.6 2.2"></a-entity>
+
+      <!-- Sky -->
+      <a-sky color="#0b1320"></a-sky>
+
+      <a-sphere
+        position="-12 12 -28"
+        radius="1.35"
+        material="color:#eef4ff; emissive:#eef4ff; emissiveIntensity:0.45"
+      ></a-sphere>
+
+      <a-entity light="type: ambient; intensity: 0.28; color: #8aa0b8"></a-entity>
+      <a-entity
+        light="type: directional; intensity: 0.65; color: #bcd6ff"
+        position="-6 10 -8"
+      ></a-entity>
+
+      <!-- Ground -->
+      <a-plane
+        id="ground"
+        position="0 0 0"
+        rotation="-90 0 0"
+        width="90"
+        height="90"
+        material="src:#grassTex; repeat:14 14; roughness:1; metalness:0"
+      ></a-plane>
+
+      <!-- Campfire and stones -->
+      <a-entity id="campfire" position="0 0 -4">
+        <a-sphere radius="0.18" position="0.85 0.10 0.00" color="#6e737a"></a-sphere>
+        <a-sphere radius="0.18" position="0.60 0.10 0.60" color="#6e737a"></a-sphere>
+        <a-sphere radius="0.18" position="0.00 0.10 0.85" color="#6e737a"></a-sphere>
+        <a-sphere radius="0.18" position="-0.60 0.10 0.60" color="#6e737a"></a-sphere>
+        <a-sphere radius="0.18" position="-0.85 0.10 0.00" color="#6e737a"></a-sphere>
+        <a-sphere radius="0.18" position="-0.60 0.10 -0.60" color="#6e737a"></a-sphere>
+        <a-sphere radius="0.18" position="0.00 0.10 -0.85" color="#6e737a"></a-sphere>
+        <a-sphere radius="0.18" position="0.60 0.10 -0.60" color="#6e737a"></a-sphere>
+
+        <!-- Firewood -->
+        <a-cylinder
+          radius="0.09"
+          height="1.7"
+          position="0 0.18 0"
+          rotation="90 35 0"
+          material="src:#woodTex; repeat:3 1; roughness:1; metalness:0"
+        ></a-cylinder>
+
+        <a-cylinder
+          radius="0.09"
+          height="1.7"
+          position="0 0.18 0"
+          rotation="90 -35 0"
+          material="src:#woodTex; repeat:3 1; roughness:1; metalness:0"
+        ></a-cylinder>
+
+        <!-- Flame -->
+        <a-cone
+          radius-bottom="0.36"
+          radius-top="0.02"
+          height="1.05"
+          position="0 0.58 0"
+          material="color:#ffbf57; emissive:#ffbf57; emissiveIntensity:1.35; opacity:0.97"
+        >
+          <a-animation
+            attribute="scale"
+            from="1 1 1"
+            to="1.18 1.32 1.18"
+            dur="300"
+            direction="alternate"
+            repeat="indefinite"
+          ></a-animation>
+        </a-cone>
+
+        <a-cone
+          radius-bottom="0.24"
+          radius-top="0.01"
+          height="0.9"
+          position="0 0.70 0"
+          material="color:#ff5a3a; emissive:#ff5a3a; emissiveIntensity:1.45; opacity:0.92"
+        >
+          <a-animation
+            attribute="rotation"
+            from="0 0 0"
+            to="0 22 0"
+            dur="420"
+            direction="alternate"
+            repeat="indefinite"
+          ></a-animation>
+        </a-cone>
+
+        <!-- Fire light -->
+        <a-entity
+          id="fireLight"
+          light="type: point; color:#ffd2a1; intensity: 4.2; distance: 30; decay: 2"
+          position="0 0.95 0"
+        >
+          <a-animation
+            attribute="light.intensity"
+            from="3.4"
+            to="4.8"
+            dur="180"
+            direction="alternate"
+            repeat="indefinite"
+          ></a-animation>
+        </a-entity>
+
+        <a-entity
+          light="type: point; color:#ff8a3d; intensity: 1.2; distance: 12; decay: 2"
+          position="0 0.45 0"
+        ></a-entity>
+      </a-entity>
+      <a-entity id="rockRing"></a-entity>
+
+      <!-- Log Cabin -->
+      <a-entity id="cabin" position="8 0 -7" rotation="0 -20 0">
+        <!-- A slightly raised floor so the walls don’t “float” -->
+        <a-box width="6.6" height="0.45" depth="6.6" position="0 0.225 0" color="#2a2a2a"></a-box>
+
+        <!-- Corners -->
+        <a-cylinder radius="0.13" height="2.7" position="-3 1.55 3"
+          material="src:#woodTex; repeat:1 2; roughness:1; metalness:0"></a-cylinder>
+        <a-cylinder radius="0.13" height="2.7" position="3 1.55 3"
+          material="src:#woodTex; repeat:1 2; roughness:1; metalness:0"></a-cylinder>
+        <a-cylinder radius="0.13" height="2.7" position="-3 1.55 -3"
+          material="src:#woodTex; repeat:1 2; roughness:1; metalness:0"></a-cylinder>
+        <a-cylinder radius="0.13" height="2.7" position="3 1.55 -3"
+          material="src:#woodTex; repeat:1 2; roughness:1; metalness:0"></a-cylinder>
+
+        <a-entity id="logs"></a-entity>
+
+        <!-- Roof -->
+        <a-box width="7.1" height="0.18" depth="7.1" position="0 2.92 0" color="#2a1c12"></a-box>
+
+        <!-- Porch -->
+        <a-box width="2.4" height="0.15" depth="0.9" color="#1f1f1f" position="0 0.10 3.65"></a-box>
+
+        <!-- Door marker -->
+        <a-entity id="doorMarker" position="0 0.45 3.35">
+          <!-- Barrels -->
+          <a-entity
+            id="barrelWrap"
+            position="2.85 -0.45 0.80"
+            rotation="-90 -180 0"
+            scale="0.03 0.03 0.03"
+          >
+            <a-entity id="barrel" gltf-model="#barrelModel" auto-ground></a-entity>
+          </a-entity>
+        </a-entity>
+      </a-entity>
+
+      <!-- Forrest -->
+      <a-entity id="forest"></a-entity>
+
+      <script>
+        AFRAME.registerComponent('auto-ground', {
+          init: function () {
+            this.el.addEventListener('model-loaded', () => {
+              const mesh = this.el.getObject3D('mesh');
+              if (!mesh) return;
+
+              const THREE = AFRAME.THREE;
+              const box = new THREE.Box3().setFromObject(mesh);
+              mesh.position.y -= box.min.y; // lift model so minY becomes 0
+            });
+          }
+        });
+
+        // Cabin Walls
+        (function buildCabinLogs() {
+          const logs = document.querySelector('#cabin #logs');
+
+          const W = 6.2, D = 6.2;
+          const zFront = 3.0, zBack = -3.0, xLeft = -3.0, xRight = 3.0;
+
+          const rows = 10;
+          const radius = 0.13;
+          const dy = 0.23;
+
+          const floorTopY = 0.45;
+          const y0 = floorTopY + radius;
+
+          const doorHalf = 0.8;
+          const doorTopY = floorTopY + 1.55;
+
+          function addLog(pos, rot, length, y) {
+            const e = document.createElement('a-cylinder');
+            e.setAttribute('radius', radius);
+            e.setAttribute('height', length);
+            e.setAttribute('position', `${pos.x} ${y} ${pos.z}`);
+            e.setAttribute('rotation', `${rot.x} ${rot.y} ${rot.z}`);
+            e.setAttribute('material', 'src:#woodTex; repeat:3 1; roughness:1; metalness:0');
+            logs.appendChild(e);
+          }
+
+          for (let i = 0; i < rows; i++) {
+            const y = y0 + i * dy;
+
+            // Back wall
+            addLog({ x: 0, z: zBack }, { x: 0, y: 0, z: 90 }, W, y);
+
+            // Side walls
+            addLog({ x: xLeft, z: 0 }, { x: 90, y: 0, z: 0 }, D, y);
+            addLog({ x: xRight, z: 0 }, { x: 90, y: 0, z: 0 }, D, y);
+
+            // Front wall
+            if (y <= doorTopY) {
+              const segLen = W / 2 - doorHalf;
+              addLog({ x: -(doorHalf + segLen / 2), z: zFront }, { x: 0, y: 0, z: 90 }, segLen, y);
+              addLog({ x: (doorHalf + segLen / 2),  z: zFront }, { x: 0, y: 0, z: 90 }, segLen, y);
+            } else {
+              addLog({ x: 0, z: zFront }, { x: 0, y: 0, z: 90 }, W, y);
+            }
+          }
+        })();
+
+        // Forrest
+        (function populateForest() {
+          const forest = document.getElementById('forest');
+          const clearFire = { x: 0, z: -4, r: 7 };
+          const clearCabin = { x: 8, z: -7, r: 8 };
+
+          const inClearing = (x, z, c) => (x - c.x) ** 2 + (z - c.z) ** 2 < c.r ** 2;
+
+          function makeTree(x, z, s) {
+            const t = document.createElement('a-entity');
+            t.setAttribute('position', `${x} 0 ${z}`);
+            t.setAttribute('rotation', `0 ${Math.random() * 360} 0`);
+
+            const trunk = document.createElement('a-cylinder');
+            trunk.setAttribute('radius', 0.12 * s);
+            trunk.setAttribute('height', 2.0 * s);
+            trunk.setAttribute('position', `0 ${1.0 * s} 0`);
+            trunk.setAttribute('material', 'src:#woodTex; repeat:1 2; roughness:1; metalness:0');
+
+            const c1 = document.createElement('a-cone');
+            c1.setAttribute('radius-bottom', 1.2 * s);
+            c1.setAttribute('radius-top', 0.08);
+            c1.setAttribute('height', 2.0 * s);
+            c1.setAttribute('position', `0 ${2.2 * s} 0`);
+            c1.setAttribute('color', '#1f6b3b');
+
+            const c2 = document.createElement('a-cone');
+            c2.setAttribute('radius-bottom', 0.95 * s);
+            c2.setAttribute('radius-top', 0.08);
+            c2.setAttribute('height', 1.7 * s);
+            c2.setAttribute('position', `0 ${2.9 * s} 0`);
+            c2.setAttribute('color', '#1a5e33');
+
+            t.appendChild(trunk);
+            t.appendChild(c1);
+            t.appendChild(c2);
+            return t;
+          }
+
+          const N = 520;
+          const RANGE = 42;
+          let placed = 0;
+
+          while (placed < N) {
+            const x = (Math.random() * 2 - 1) * RANGE;
+            const z = (Math.random() * 2 - 1) * RANGE;
+
+            if (inClearing(x, z, clearFire) || inClearing(x, z, clearCabin)) continue;
+
+            forest.appendChild(makeTree(x, z, 0.9 + Math.random() * 1.0));
+            placed++;
+          }
+        })();
+
+        // Rock ring
+        (function ringOfRocks() {
+          const ring = document.getElementById('rockRing');
+          const cx = 0, cz = -4;
+          const count = 6;
+          const baseR = 3.4;
+
+          for (let i = 0; i < count; i++) {
+            const a = (i / count) * Math.PI * 2;
+            const jitterR = baseR + (Math.random() * 0.8 - 0.4);
+            const jitterA = a + (Math.random() * 0.35 - 0.175);
+
+            const x = cx + Math.cos(jitterA) * jitterR;
+            const z = cz + Math.sin(jitterA) * jitterR;
+
+            const rock = document.createElement('a-entity');
+            rock.setAttribute('gltf-model', '#rockModel');
+            rock.setAttribute('position', `${x} 0 ${z}`);
+            rock.setAttribute('rotation', `0 ${Math.random() * 360} 0`);
+
+            const s = 0.6 + Math.random() * 0.35;
+            rock.setAttribute('scale', `${s} ${s} ${s}`);
+
+            ring.appendChild(rock);
+          }
+        })();
+      </script>
+    </a-scene>
+  </body>
+</html>
